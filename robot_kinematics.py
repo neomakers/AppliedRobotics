@@ -50,11 +50,9 @@ def plot_angle(ax, center, theta1, theta2, radius=0.3, label=None, color='black'
 
 
 # 绘制函数，用于更新图形
-def plot_robot(theta1, theta2):
+def plot_robot_forward(theta1, theta2):
     x1, y1, x2, y2 = forward_kinematics(theta1, theta2)
-    
     fig, ax = plt.subplots()  # 创建新的绘图上下文
-    
     # 设置绘图区域和坐标系限制
     ax.set_xlim(-3, 3)
     ax.set_ylim(-3, 3)
@@ -91,15 +89,15 @@ def plot_robot(theta1, theta2):
     ax.plot([0, x2], [y2, y2], 'b--')  # P2到Y轴的投影线
 
     # 使用 LaTeX 渲染投影点
-    delta = 0.1
+    delta=delta
     if y1 >= 0:
         ax.text(x1, 0 - delta * 2, r'$P_{1_x}=cos(\theta_1)=%.2f$' % x1, fontsize=10, ha='center', color='red')
     else:
         ax.text(x1, 0 + delta * 2, r'$P_{1_x}=cos(\theta_1)=%.2f$' % x1, fontsize=10, ha='center', color='red')
     if y2 >= 0:
-        ax.text(x2, 0 - delta * 4, r'$P_{2_x}=cos(\theta_2)=%.2f$' % x2, fontsize=10, ha='center', color='blue')
+        ax.text(x2, 0 - delta * 4, r'$P_{2_x}=cos(\theta_{ii})=%.2f$' % x2, fontsize=10, ha='center', color='blue')
     else:
-        ax.text(x2, 0 + delta * 4, r'$P_{2_x}=cos(\theta_2)=%.2f$' % x2, fontsize=10, ha='center', color='blue')
+        ax.text(x2, 0 + delta * 4, r'$P_{2_x}=cos(\theta_{ii})=%.2f$' % x2, fontsize=10, ha='center', color='blue')
 
     if x1 >= 0 and y1 > 0:
         ax.text(0 - delta * 16, y1, r'$P_{1_y}=sin(\theta_1)=%.2f$' % y1, fontsize=10, va='center', color='red')
@@ -109,25 +107,26 @@ def plot_robot(theta1, theta2):
         ax.text(0 + delta * 0.5, y1, r'$P_{1_y}=sin(\theta_1)=%.2f$' % y1, fontsize=10, va='center', color='red')
 
     if x2 >= 0 and y2 > 0:
-        ax.text(0 - delta * 16, y2, r'$P_{2_y}=sin(\theta_2)=%.2f$' % y2, fontsize=10, va='center', color='blue')
+        ax.text(0 - delta * 16, y2, r'$P_{2_y}=sin(\theta_{ii})=%.2f$' % y2, fontsize=10, va='center', color='blue')
     elif y2 < 0:
-        ax.text(0 - delta * 18, y2, r'$P_{2_y}=sin(\theta_2)=%.2f$' % y2, fontsize=10, va='center', color='blue')
+        ax.text(0 - delta * 18, y2, r'$P_{2_y}=sin(\theta_{ii})=%.2f$' % y2, fontsize=10, va='center', color='blue')
     else:
-        ax.text(0 + delta * 0.5, y2, r'$P_{2_y}=sin(\theta_2)=%.2f$' % y2, fontsize=10, va='center', color='blue')
+        ax.text(0 + delta * 0.5, y2, r'$P_{2_y}=sin(\theta_{ii})=%.2f$' % y2, fontsize=10, va='center', color='blue')
 
     # 绘制角度
     plot_angle(ax, (0, 0), 0, theta1, label=r'$\theta_1$', color='red')
-    plot_angle(ax, (x1, y1), theta1, theta2, label=r'$\theta_2$', color='blue')
-    plot_angle(ax, (x1, y1), (0,0), theta2, label=r'$\theta_{ii}$', color='green')
+    plot_angle(ax, (x1, y1), theta1, theta2, label=r'$\theta_2$', color='green')
+    plot_angle(ax, (x1, y1), 0,theta2+theta1, radius=0.7, label=r'$\theta_{ii}$', color='blue')
+
     
-    ax.set_title(r'$\theta_1$: %.2f°, $\theta_2$: %.2f°' % (theta1, theta2))
+    ax.set_title(r'$x$: %.2f, $y$: %.2f' % (x2, y2))
     
     # 显示图像
     plt.show()
 
 
 # 创建交互函数
-def create_interactive():
+def create_interactive_forward():
     joint0_t0 = 53
     joint1_t0 = -26
     theta1_slider = FloatSlider(min=-180, max=180, step=1, value=joint0_t0, description='Theta1')
@@ -156,5 +155,39 @@ def create_interactive():
     theta2_input.observe(update_slider2, 'value')
 
     # 组合滑块与输入框的交互
-    interactive_plot = interactive(plot_robot, theta1=theta1_slider, theta2=theta2_slider)
+    interactive_plot = interactive(plot_robot_forward, theta1=theta1_slider, theta2=theta2_slider)
+    display(interactive_plot)
+
+
+def create_interactive_inverse():
+    x0 = 53
+    y0 = -26
+    x_slider = FloatSlider(min=-180, max=180, step=1, value=x0, description='x')
+    x_input = FloatText(value=x0)
+    x_box = HBox([x_slider, x_input])
+
+    y_slider = FloatSlider(min=-180, max=180, step=1, value=y0, description='y')
+    y_input = FloatText(value=y0)
+    y_box = HBox([y_slider, y_input])
+
+    # 将滑块与输入框联动
+    def update_x(*args):
+        x_input.value = x_slider.value
+    def update_slider1(*args):
+        x_slider.value = x_input.value
+
+    def update_y(*args):
+        y_input.value = y_slider.value
+    def update_slider2(*args):
+        y_slider.value = y_input.value
+
+    x_slider.observe(update_x, 'value')
+    x_input.observe(update_slider1, 'value')
+
+    y_slider.observe(update_y, 'value')
+    y_input.observe(update_slider2, 'value')
+
+    # 组合滑块与输入框的交互
+    interactive_plot = interactive(plot_robot_forward, theta1=x_slider, theta2=y_slider)
+    # interactive_plot = interactive(plot_robot, theta1=x_slider, theta2=y_slider)
     display(interactive_plot)
