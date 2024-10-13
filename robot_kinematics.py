@@ -24,7 +24,7 @@ def forward_kinematics(theta1, theta2):
     return x1, y1, x2, y2
 
 # 添加角度绘制的辅助函数
-def plot_angle(ax, center, theta1, theta2, radius=0.3, label=None, color='black'):
+def plot_angle(ax, center, theta1, theta2, radius=0.3, label=None, color='black',fontsize=12):
     # 绘制圆弧表示角度
     if theta2 >= 0:
         arc = Arc(center, radius * 2, radius * 2, angle=0, theta1=theta1, theta2=theta2 + theta1, color=color, lw=2)
@@ -37,7 +37,7 @@ def plot_angle(ax, center, theta1, theta2, radius=0.3, label=None, color='black'
     start_y = center[1] + radius * np.sin(np.radians(theta1))
     end_x = center[0] + radius * np.cos(np.radians(theta1 + theta2))
     end_y = center[1] + radius * np.sin(np.radians(theta1 + theta2))
-    theta_x = center[0] + 1.3 * radius * np.cos(np.radians(theta1 + theta2 / 2))
+    theta_x = center[0] + (1.3/12) *fontsize* radius * np.cos(np.radians(theta1 + theta2 / 2))
     theta_y = center[1] + 1.3 * radius * np.sin(np.radians(theta1 + theta2 / 2))
     
     # 绘制角度的初始边和终止边
@@ -46,11 +46,11 @@ def plot_angle(ax, center, theta1, theta2, radius=0.3, label=None, color='black'
     
     # 标注角度的标签
     if label:
-        ax.text(theta_x, theta_y, label, fontsize=12, color=color, ha='center', va='center')
+        ax.text(theta_x, theta_y, label, fontsize=fontsize, color=color, ha='center', va='center')
 
 
 # 绘制函数，用于更新图形
-def plot_robot_forward(theta1, theta2):
+def plot_robot_forward(theta1, theta2,font_size=12):
     x1, y1, x2, y2 = forward_kinematics(theta1, theta2)
     fig, ax = plt.subplots()  # 创建新的绘图上下文
     # 设置绘图区域和坐标系限制
@@ -58,8 +58,8 @@ def plot_robot_forward(theta1, theta2):
     ax.set_ylim(-3, 3)
     
     # 添加X轴和Y轴的标签
-    ax.set_xlabel(r'$X$', fontsize=12)
-    ax.set_ylabel(r'$Y$', fontsize=12)
+    ax.set_xlabel(r'$X$', fontsize=font_size)
+    ax.set_ylabel(r'$Y$', fontsize=font_size)
 
     # 绘制X轴和Y轴
     ax.axhline(0, color='black', linewidth=0.5)  # X轴
@@ -70,13 +70,13 @@ def plot_robot_forward(theta1, theta2):
     ax.plot([0, x1, x2], [0, y1, y2], 'o-', lw=4)
     
     # 标注P0、P1、P2点的位置
-    ax.text(0, 0 + delta, r'$P_0$', fontsize=12, ha='right', color='green')  # 原点 P0
-    ax.text(x1, y1 + delta, r'$P_1$', fontsize=12, ha='right', color='red')  # 关节点 P1
-    ax.text(x2 + delta, y2 + delta, r'$P_2$', fontsize=12, ha='right', color='blue')  # 末端执行器 P2
+    ax.text(0, 0 + delta, r'$P_0$', fontsize=font_size, ha='right', color='green')  # 原点 P0
+    ax.text(x1, y1 + delta, r'$P_1$', fontsize=font_size, ha='right', color='red')  # 关节点 P1
+    ax.text(x2 + delta, y2 + delta, r'$P_2$', fontsize=font_size, ha='right', color='blue')  # 末端执行器 P2
     
     # 绘制并标注连杆长度
-    ax.text(x1 / 2, y1 / 2 + delta, r'$l_1$', fontsize=12, color='red')  # 标注连杆1的长度
-    ax.text((x1 + x2) / 2, (y1 + y2) / 2 + delta, r'$l_2$', fontsize=12, color='green')  # 标注连杆2的长度
+    ax.text(x1 / 2, y1 / 2 + delta, r'$l_1$', fontsize=font_size, color='red')  # 标注连杆1的长度
+    ax.text((x1 + x2) / 2, (y1 + y2) / 2 + delta, r'$l_2$', fontsize=font_size, color='green')  # 标注连杆2的长度
     
     # 绘制关键点
     ax.plot([x1], [y1], 'ro')  # 关节1
@@ -159,14 +159,104 @@ def create_interactive_forward():
     display(interactive_plot)
 
 
+# 定义逆运动学函数
+def inverse_kinematics(x, y):
+    # 计算 cos(theta_2)
+    cos_theta2 = (x**2 + y**2 - l1**2 - l2**2) / (2 * l1 * l2)
+    
+    # 检查 cos_theta2 是否在有效范围内（-1 到 1）
+    if cos_theta2 < -1 or cos_theta2 > 1:
+        raise ValueError("无法到达该位置：超出连杆的可到达范围。")
+    
+    # 计算两个 theta_2 的解
+    theta_2_a = np.arccos(cos_theta2)
+    theta_2_b = -np.arccos(cos_theta2)
+    
+    # 计算 theta_1 对应的解
+    k1 = l1 + l2 * np.cos(theta_2_a)
+    k2_a = l2 * np.sin(theta_2_a)
+    k2_b = l2 * np.sin(theta_2_b)
+    
+    theta_1_a = np.arctan2(y, x) - np.arctan2(k2_a, k1)
+    theta_1_b = np.arctan2(y, x) - np.arctan2(k2_b, k1)
+
+    # 将弧度转换为角度
+    theta_1_a_deg = np.degrees(theta_1_a)
+    theta_2_a_deg = np.degrees(theta_2_a)
+    
+    theta_1_b_deg = np.degrees(theta_1_b)
+    theta_2_b_deg = np.degrees(theta_2_b)
+    
+    return [theta_1_a_deg, theta_2_a_deg], [theta_1_b_deg, theta_2_b_deg]
+
+
+# 绘制两个解的机器人姿态
+def plot_robot_inverse(x, y):
+    font_size=24
+    [theta_1_a, theta_2_a], [theta_1_b, theta_2_b] = inverse_kinematics(x, y)
+
+    # 使用 forward_kinematics 计算连杆的关节位置
+    x1_a, y1_a, x2_a, y2_a = forward_kinematics(theta_1_a, theta_2_a)
+    x1_b, y1_b, x2_b, y2_b = forward_kinematics(theta_1_b, theta_2_b)
+
+    # 创建图形并绘制两个子图
+    fig, axs = plt.subplots(1, 2, figsize=(12, 6))
+
+    # 第一个解（肘关节向上）
+    axs[0].plot([0, x1_a, x2_a], [0, y1_a, y2_a], 'o-', lw=4)
+    axs[0].set_xlim(-3, 3)
+    axs[0].set_ylim(-3, 3)
+    axs[0].set_title(f'Elbow Up: θ_1 = {theta_1_a:.2f}°, θ_2 = {theta_2_a:.2f}°',fontsize=font_size/1.5)
+    axs[0].set_xlabel('X')
+    axs[0].set_ylabel('Y')
+    
+    
+    # 标注点P0、P1、P2
+    axs[0].text(0, 0, 'P0', fontsize=font_size, color='blue')
+    axs[0].text(x1_a, y1_a, 'P1', fontsize=font_size, color='red')
+    axs[0].text(x2_a, y2_a, 'P2', fontsize=font_size, color='green')
+        # 绘制X轴和Y轴
+    axs[0].axhline(0, color='black', linewidth=0.5)  # X轴
+    axs[0].axvline(0, color='black', linewidth=0.5)  # Y轴
+
+    # 绘制角度
+    # 绘制角度
+    plot_angle(axs[0], (0, 0), 0, theta_1_a, label=r'$\theta_1$', color='red',fontsize=font_size)
+    plot_angle(axs[0], (x1_a, y1_a), theta_1_a, theta_2_a, label=r'$\theta_2$', color='blue',fontsize=font_size)
+
+    # 第二个解（肘关节向下）
+    axs[1].plot([0, x1_b, x2_b], [0, y1_b, y2_b], 'o-', lw=4)
+    axs[1].set_xlim(-3, 3)
+    axs[1].set_ylim(-3, 3)
+    axs[1].set_title(f'Elbow Down: θ_1 = {theta_1_b:.2f}°, θ_2 = {theta_2_b:.2f}°',fontsize=font_size/1.5)
+    axs[1].set_xlabel('X')
+    axs[1].set_ylabel('Y')
+    
+    
+    # 标注点P0、P1、P2
+    axs[1].text(0, 0, 'P0', fontsize=font_size, color='blue')
+    axs[1].text(x1_b, y1_b, 'P1', fontsize=font_size, color='red')
+    axs[1].text(x2_b, y2_b, 'P2', fontsize=font_size, color='green')
+
+    axs[1].axhline(0, color='black', linewidth=0.5)  # X轴
+    axs[1].axvline(0, color='black', linewidth=0.5)  # Y轴    
+    
+    # 绘制角度
+    plot_angle(axs[1], (0, 0), 0, theta_1_b, label=r'$\theta_1$', color='red',fontsize=font_size)
+    plot_angle(axs[1], (x1_b, y1_b), theta_1_b, theta_2_b, label=r'$\theta_2$', color='blue',fontsize=font_size)
+
+    # 显示图形
+    plt.tight_layout()
+    plt.show()
+
 def create_interactive_inverse():
-    x0 = 53
-    y0 = -26
-    x_slider = FloatSlider(min=-180, max=180, step=1, value=x0, description='x')
+    x0 = 2
+    y0 = -1
+    x_slider = FloatSlider(min=-3, max=3, step=.1, value=x0, description='x')
     x_input = FloatText(value=x0)
     x_box = HBox([x_slider, x_input])
 
-    y_slider = FloatSlider(min=-180, max=180, step=1, value=y0, description='y')
+    y_slider = FloatSlider(min=-3, max=3, step=.1, value=y0, description='y')
     y_input = FloatText(value=y0)
     y_box = HBox([y_slider, y_input])
 
@@ -188,6 +278,6 @@ def create_interactive_inverse():
     y_input.observe(update_slider2, 'value')
 
     # 组合滑块与输入框的交互
-    interactive_plot = interactive(plot_robot_forward, theta1=x_slider, theta2=y_slider)
+    interactive_plot = interactive(plot_robot_inverse, x=x_slider, y=y_slider)
     # interactive_plot = interactive(plot_robot, theta1=x_slider, theta2=y_slider)
     display(interactive_plot)
