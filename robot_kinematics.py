@@ -50,7 +50,8 @@ def plot_angle(ax, center, theta1, theta2, radius=0.3, label=None, color='black'
 
 
 # 绘制函数，用于更新图形
-def plot_robot_forward(theta1, theta2,font_size=12):
+def plot_robot_forward(theta1, theta2):
+    font_size=12
     x1, y1, x2, y2 = forward_kinematics(theta1, theta2)
     fig, ax = plt.subplots()  # 创建新的绘图上下文
     # 设置绘图区域和坐标系限制
@@ -206,7 +207,7 @@ def plot_robot_inverse(x, y):
     axs[0].plot([0, x1_a, x2_a], [0, y1_a, y2_a], 'o-', lw=4)
     axs[0].set_xlim(-3, 3)
     axs[0].set_ylim(-3, 3)
-    axs[0].set_title(f'Elbow Up: θ_1 = {theta_1_a:.2f}°, θ_2 = {theta_2_a:.2f}°',fontsize=font_size/1.5)
+    axs[0].set_title(f'Elbow Up: $θ_1$ = {theta_1_a:.2f}°, $θ_2$ = {theta_2_a:.2f}°',fontsize=font_size/1.5)
     axs[0].set_xlabel('X')
     axs[0].set_ylabel('Y')
     
@@ -242,8 +243,8 @@ def plot_robot_inverse(x, y):
     axs[1].axvline(0, color='black', linewidth=0.5)  # Y轴    
     
     # 绘制角度
-    plot_angle(axs[1], (0, 0), 0, theta_1_b, label=r'$\theta_1$', color='red',fontsize=font_size)
-    plot_angle(axs[1], (x1_b, y1_b), theta_1_b, theta_2_b, label=r'$\theta_2$', color='blue',fontsize=font_size)
+    plot_angle(axs[1], (0, 0), 0, theta_1_b, label=r'$\theta_1$', color='blue',fontsize=font_size)
+    plot_angle(axs[1], (x1_b, y1_b), theta_1_b, theta_2_b, label=r'$\theta_2$', color='red',fontsize=font_size)
 
     # 显示图形
     plt.tight_layout()
@@ -252,11 +253,11 @@ def plot_robot_inverse(x, y):
 def create_interactive_inverse():
     x0 = 2
     y0 = -1
-    x_slider = FloatSlider(min=-3, max=3, step=.1, value=x0, description='x')
+    x_slider = FloatSlider(min=-3, max=3, step=.01, value=x0, description='x')
     x_input = FloatText(value=x0)
     x_box = HBox([x_slider, x_input])
 
-    y_slider = FloatSlider(min=-3, max=3, step=.1, value=y0, description='y')
+    y_slider = FloatSlider(min=-3, max=3, step=.01, value=y0, description='y')
     y_input = FloatText(value=y0)
     y_box = HBox([y_slider, y_input])
 
