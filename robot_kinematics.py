@@ -609,14 +609,19 @@ def plot_robot_inverse_for_psi_theta(x, y):
 
     # 使用 forward_kinematics 计算连杆的关节位置
     x1_a, y1_a, x2_a, y2_a = forward_kinematics(theta_1_a, theta_2_a)
+    l1_ext=l1+l2*np.cos(np.deg2rad(theta_2_a))
+    K=[l1_ext*np.cos(np.deg2rad(theta_1_a)),l1_ext*np.sin(np.deg2rad(theta_1_a))]
+
     psi=np.rad2deg(np.arctan2(y2_a,x2_a))
     epsilon=psi-theta_1_a
     # 创建图形并绘制两个子图
     fig, axses = plt.subplots(1, 2, figsize=(12, 6))
     delta=0.1
     # 第一个解（肘关节向上）
-    axses[0].plot([0, x1_a, x2_a], [0, y1_a, y2_a],'-',color='orange', lw=4)
+    axses[0].plot([0, x1_a, x2_a], [0, y1_a, y2_a],'-',color='orange', lw=3)
     axses[0].plot([0, x2_a], [0, y2_a], 'k-.', lw=1)
+    axses[0].plot([x2_a, x2_a], [0, y2_a], '--',color='black', lw=1)
+    axses[0].plot([0, x2_a], [y2_a, y2_a], '--',color='black', lw=1)
     axses[0].set_xlim(-3, 3)
     axses[0].set_ylim(-3, 3)
     axses[0].set_title(f'Elbow Up: $θ_1$ = {theta_1_a:.2f}°, $θ_2$ = {theta_2_a:.2f}°',fontsize=font_size/1.5)
@@ -635,7 +640,7 @@ def plot_robot_inverse_for_psi_theta(x, y):
     y1=y1_a
     x2=x2_a
     y2=y2_a
-    if x1>0 and y1<0:
+    if x1>0:
         delta = -0.5
     else :
         delta = 0.1
@@ -647,6 +652,8 @@ def plot_robot_inverse_for_psi_theta(x, y):
     else:
         axses[0].text((x1 + x2) / 2, (y1 + y2) / 2 + delta, r'$l_2$', fontsize=font_size, color='green')  # 标注连杆2的长度
     
+    axses[0].text(x2,-0.1, r'$x$', fontsize=font_size, color='black')  # 标注连杆2的长度
+    axses[0].text(-0.1,y2, r'$y$', fontsize=font_size, color='black')  # 标注连杆2的长度
     # 绘制角度
     # 绘制角度
     delta=0.1
@@ -655,11 +662,22 @@ def plot_robot_inverse_for_psi_theta(x, y):
     plot_angle(axses[0], (x1_a, y1_a), theta_1_a, theta_2_a, label=r' $\theta_2$', color='red',fontsize=font_size)
     end_angle=psi
     start_angle=theta_1_a
-    plot_angle(axses[0], (0, 0), start_angle, -start_angle+end_angle,radius=0.65, label=r'$\epsilon$', color='purple',fontsize=font_size)
-    plot_angle(axses[0], (0, 0), 0,np.rad2deg(np.arctan2(y2_a,x2_a)),radius=1, label=r'$\psi$', color='black',fontsize=font_size)
+    plot_angle(axses[0], (0, 0), start_angle, -start_angle+end_angle,radius=0.65, label=r'$\epsilon$', color='green',fontsize=font_size)
+    plot_angle(axses[0], (0, 0), 0,np.rad2deg(np.arctan2(y2_a,x2_a)),radius=1, label=r'             $\psi=\epsilon+\theta_1$', color='black',fontsize=font_size)
     # 显示图形
-    axses[1].plot([0, x1_a, x2_a], [0, y1_a, y2_a],'-',color='orange', lw=4)
-    axses[1].plot([0, x2_a], [0, y2_a], 'k-.', lw=1)
+    axses[1].plot([0, x1_a, x2_a], [0, y1_a, y2_a],'-',color='orange', lw=2)
+    axses[1].plot([0, x2_a], [0, y2_a], '-.',color='black',lw=1)
+    axses[1].plot([x1_a, K[0]], [y1_a, K[1]], '-', color='red',lw=4)
+    
+    if x1>0 and x>0:
+        delta=-0.3
+    else:
+        delta=0.3
+    axses[1].text((x1_a+K[0])/2, (y1_a+K[1])/2+delta, r'$l_{2}\cos(\theta_2$)', fontsize=font_size, color='red')
+
+    axses[1].text((x2_a+K[0])/2, (y2_a+K[1])/2, r'  $l_2\sin(\theta_2$)', fontsize=font_size, color='green')
+
+    axses[1].plot([K[0],x2_a], [K[1],y2_a], '-', color='green',lw=4)
     axses[1].set_xlim(-3, 3)
     axses[1].set_ylim(-3, 3)
     axses[1].set_title(f'Elbow Up: $θ_1$ = {theta_1_a:.2f}°, $θ_2$ = {theta_2_a:.2f}°',fontsize=font_size/1.5)
@@ -678,7 +696,7 @@ def plot_robot_inverse_for_psi_theta(x, y):
     y1=y1_a
     x2=x2_a
     y2=y2_a
-    if x1>0 and y1<0:
+    if x1>0:
         delta = -0.5
     else :
         delta = 0.1
@@ -699,16 +717,16 @@ def plot_robot_inverse_for_psi_theta(x, y):
     plot_angle(axses[1], (x1_a, y1_a), theta_1_a, theta_2_a, label=r' $\theta_2$', color='red',fontsize=font_size)
     end_angle=psi
     start_angle=theta_1_a
-    plot_angle(axses[1], (0, 0), start_angle, -start_angle+end_angle, label=r'$\epsilon$', radius=0.65,color='purple',fontsize=font_size)
-    plot_angle(axses[1], (0, 0), 0,psi,radius=1, label=r'$\psi$', color='black',fontsize=font_size)
+    plot_angle(axses[1], (0, 0), start_angle, -start_angle+end_angle, label=r'$\epsilon$', radius=0.65,color='green',fontsize=font_size)
+    # plot_angle(axses[1], (0, 0), 0,psi,radius=1, label=r'$\psi$', color='black',fontsize=font_size)
     
     plt.tight_layout()
     plt.show()
 
 
 def create_interactive_inverse_for_psi_theta():
-    x0 = 2
-    y0 = -1
+    x0 = 1.95
+    y0 = 1.36
     x_slider = FloatSlider(min=-3, max=3, step=.01, value=x0, description='x')
     x_input = FloatText(value=x0)
     x_box = HBox([x_slider, x_input])
