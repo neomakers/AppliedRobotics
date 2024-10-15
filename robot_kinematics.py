@@ -37,7 +37,7 @@ def plot_angle(ax, center, theta1, theta2, radius=0.3, label=None, color='black'
     start_y = center[1] + radius * np.sin(np.radians(theta1))
     end_x = center[0] + radius * np.cos(np.radians(theta1 + theta2))
     end_y = center[1] + radius * np.sin(np.radians(theta1 + theta2))
-    delta=0.15
+    delta=0.2
     theta_x = center[0] + (radius+delta) * np.cos(np.radians(theta1 + theta2 / 2))
     theta_y = center[1] + (radius+delta) * np.sin(np.radians(theta1 + theta2 / 2))
     
@@ -91,7 +91,7 @@ def plot_robot_forward(theta1, theta2):
     
     delta = 0.1    
     # 绘制机器人连杆
-    ax.plot([0, x1, x2], [0, y1, y2], 'o-', lw=4)
+    ax.plot([0, x1, x2], [0, y1, y2], '--',color="orange", lw=4)
     
     # 标注P0、P1、P2点的位置
     ax.text(0, 0 + delta, r'$P_0$', fontsize=font_size, ha='right', color='green')  # 原点 P0
@@ -115,20 +115,20 @@ def plot_robot_forward(theta1, theta2):
     # 使用 LaTeX 渲染投影点
     delta=delta
     if y1 >= 0:
-        ax.text(x1, 0 - delta * 2, r'$P_{1_x}=cos(\theta_1)=%.2f$' % x1, fontsize=10, ha='center', color='red')
+        ax.text(x1, 0 - delta * 2, r'$P_{1_x}=l_1\cos(\theta_1)=%.2f$' % x1, fontsize=10, ha='center', color='red')
     else:
-        ax.text(x1, 0 + delta * 2, r'$P_{1_x}=cos(\theta_1)=%.2f$' % x1, fontsize=10, ha='center', color='red')
+        ax.text(x1, 0 + delta * 2, r'$P_{1_x}=l_1\cos(\theta_1)=%.2f$' % x1, fontsize=10, ha='center', color='red')
     if y2 >= 0:
-        ax.text(x2, 0 - delta * 4, r'$P_{2_x}=cos(\theta_{ii})=%.2f$' % x2, fontsize=10, ha='center', color='blue')
+        ax.text(x2, 0 - delta * 4, r'$P_{2_x}=l_1\cos(\theta_{ii})=%.2f$' % x2, fontsize=10, ha='center', color='blue')
     else:
-        ax.text(x2, 0 + delta * 4, r'$P_{2_x}=cos(\theta_{ii})=%.2f$' % x2, fontsize=10, ha='center', color='blue')
+        ax.text(x2, 0 + delta * 4, r'$P_{2_x}=l_1\cos(\theta_{ii})=%.2f$' % x2, fontsize=10, ha='center', color='blue')
 
     if x1 >= 0 and y1 > 0:
-        ax.text(0 - delta * 16, y1, r'$P_{1_y}=sin(\theta_1)=%.2f$' % y1, fontsize=10, va='center', color='red')
+        ax.text(0 - delta * 16, y1, r'$P_{1_y}=l_1\sin(\theta_1)=%.2f$' % y1, fontsize=10, va='center', color='red')
     elif x1 > 0 and y1 < 0:
-        ax.text(0 - delta * 18, y1, r'$P_{1_y}=sin(\theta_1)=%.2f$' % y1, fontsize=10, va='center', color='red')
+        ax.text(0 - delta * 18, y1, r'$P_{1_y}=l_1\sin(\theta_1)=%.2f$' % y1, fontsize=10, va='center', color='red')
     else:
-        ax.text(0 + delta * 0.5, y1, r'$P_{1_y}=sin(\theta_1)=%.2f$' % y1, fontsize=10, va='center', color='red')
+        ax.text(0 + delta * 0.5, y1, r'$P_{1_y}=l_1\sin(\theta_1)=%.2f$' % y1, fontsize=10, va='center', color='red')
 
     if x2 >= 0 and y2 > 0:
         ax.text(0 - delta * 16, y2, r'$P_{2_y}=sin(\theta_{ii})=%.2f$' % y2, fontsize=10, va='center', color='blue')
