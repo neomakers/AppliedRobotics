@@ -119,9 +119,9 @@ def plot_robot_forward(theta1, theta2):
     else:
         ax.text(x1, 0 + delta * 2, r'$P_{1_x}=l_1\cos(\theta_1)=%.2f$' % x1, fontsize=10, ha='center', color='red')
     if y2 >= 0:
-        ax.text(x2, 0 - delta * 4, r'$P_{2_x}=l_1\cos(\theta_{ii})=%.2f$' % x2, fontsize=10, ha='center', color='blue')
+        ax.text(x2, 0 - delta * 5, r'$x=P_{2_x}=l_1\cos(\theta_{ii})=%.2f$' % x2, fontsize=10, ha='center', color='blue')
     else:
-        ax.text(x2, 0 + delta * 4, r'$P_{2_x}=l_1\cos(\theta_{ii})=%.2f$' % x2, fontsize=10, ha='center', color='blue')
+        ax.text(x2, 0 + delta * 5, r'$x=P_{2_x}=l_1\cos(\theta_{ii})=%.2f$' % x2, fontsize=10, ha='center', color='blue')
 
     if x1 >= 0 and y1 > 0:
         ax.text(0 - delta * 16, y1, r'$P_{1_y}=l_1\sin(\theta_1)=%.2f$' % y1, fontsize=10, va='center', color='red')
@@ -131,16 +131,16 @@ def plot_robot_forward(theta1, theta2):
         ax.text(0 + delta * 0.5, y1, r'$P_{1_y}=l_1\sin(\theta_1)=%.2f$' % y1, fontsize=10, va='center', color='red')
 
     if x2 >= 0 and y2 > 0:
-        ax.text(0 - delta * 16, y2, r'$P_{2_y}=sin(\theta_{ii})=%.2f$' % y2, fontsize=10, va='center', color='blue')
+        ax.text(0 - delta * 16, y2, r'$y=P_{2_y}=sin(\theta_{ii})=%.2f$' % y2, fontsize=10, va='center', color='blue')
     elif y2 < 0:
-        ax.text(0 - delta * 18, y2, r'$P_{2_y}=sin(\theta_{ii})=%.2f$' % y2, fontsize=10, va='center', color='blue')
+        ax.text(0 - delta * 18, y2, r'$y=P_{2_y}=sin(\theta_{ii})=%.2f$' % y2, fontsize=10, va='center', color='blue')
     else:
-        ax.text(0 + delta * 0.5, y2, r'$P_{2_y}=sin(\theta_{ii})=%.2f$' % y2, fontsize=10, va='center', color='blue')
+        ax.text(0 + delta * 0.5, y2, r'$y=P_{2_y}=sin(\theta_{ii})=%.2f$' % y2, fontsize=10, va='center', color='blue')
 
     # 绘制角度
     plot_angle(ax, (0, 0), 0, theta1, label=r'$\theta_1$', color='red')
     plot_angle(ax, (x1, y1), theta1, theta2, label=r'$\theta_2$', color='green')
-    plot_angle(ax, (x1, y1), 0,theta2+theta1, radius=0.7, label=r'$\theta_{ii}=\theta_1+\theta_2$', color='blue')
+    plot_angle(ax, (x1, y1), 0,theta2+theta1, radius=0.7, label=r'$\theta_{ii}$', color='blue')
 
     
     ax.set_title(r'$x$: %.2f, $y$: %.2f' % (x2, y2))
@@ -226,27 +226,27 @@ def plot_robot_forward_with_r(theta1, theta2):
     # 使用 LaTeX 渲染投影点
     delta=delta
     if y1 >= 0:
-        ax.text(x1, 0 - delta * 2, r'$P_{1_x}=cos(\theta_1)=%.2f$' % x1, fontsize=10, ha='center', color='red')
+        ax.text(x1, 0 - delta * 2, r'$P_{1_x}=l_1\cos(\theta_1)=%.2f$' % x1, fontsize=10, ha='center', color='red')
     else:
-        ax.text(x1, 0 + delta * 2, r'$P_{1_x}=cos(\theta_1)=%.2f$' % x1, fontsize=10, ha='center', color='red')
+        ax.text(x1, 0 + delta * 2, r'$P_{1_x}=l_1\cos(\theta_1)=%.2f$' % x1, fontsize=10, ha='center', color='red')
     if y2 >= 0:
-        ax.text(x2, 0 - delta * 4, r'$P_{2_x}=cos(\theta_{ii})=%.2f$' % x2, fontsize=10, ha='center', color='blue')
+        ax.text(x2, 0 - delta * 5, r'$x=%.2f$' % x2, fontsize=10, ha='center', color='blue')
     else:
-        ax.text(x2, 0 + delta * 4, r'$P_{2_x}=cos(\theta_{ii})=%.2f$' % x2, fontsize=10, ha='center', color='blue')
+        ax.text(x2, 0 + delta * 5, r'$x=%.2f$' % x2, fontsize=10, ha='center', color='blue')
 
     if x1 >= 0 and y1 > 0:
-        ax.text(0 - delta * 16, y1, r'$P_{1_y}=sin(\theta_1)=%.2f$' % y1, fontsize=10, va='center', color='red')
+        ax.text(0 - delta * 16, y1, r'$P_{1_y}=l_1\sin(\theta_1)=%.2f$' % y1, fontsize=10, va='center', color='red')
     elif x1 > 0 and y1 < 0:
-        ax.text(0 - delta * 18, y1, r'$P_{1_y}=sin(\theta_1)=%.2f$' % y1, fontsize=10, va='center', color='red')
+        ax.text(0 - delta * 18, y1, r'$P_{1_y}=l_1\sin(\theta_1)=%.2f$' % y1, fontsize=10, va='center', color='red')
     else:
-        ax.text(0 + delta * 0.5, y1, r'$P_{1_y}=sin(\theta_1)=%.2f$' % y1, fontsize=10, va='center', color='red')
+        ax.text(0 + delta * 0.5, y1, r'$P_{1_y}=l_1\sin(\theta_1)=%.2f$' % y1, fontsize=10, va='center', color='red')
 
     if x2 >= 0 and y2 > 0:
-        ax.text(0 - delta * 16, y2, r'$P_{2_y}=sin(\theta_{ii})=%.2f$' % y2, fontsize=10, va='center', color='blue')
+        ax.text(0 - delta * 16, y2, r'$y=%.2f$' % y2, fontsize=10, va='center', color='blue')
     elif y2 < 0:
-        ax.text(0 - delta * 18, y2, r'$P_{2_y}=sin(\theta_{ii})=%.2f$' % y2, fontsize=10, va='center', color='blue')
+        ax.text(0 - delta * 18, y2, r'$y=%.2f$' % y2, fontsize=10, va='center', color='blue')
     else:
-        ax.text(0 + delta * 0.5, y2, r'$P_{2_y}=sin(\theta_{ii})=%.2f$' % y2, fontsize=10, va='center', color='blue')
+        ax.text(0 + delta * 0.5, y2, r'y=%.2f$' % y2, fontsize=10, va='center', color='blue')
 
     # 绘制角度
     plot_angle(ax, (0, 0), 0, theta1, label=r'$\theta_1$', color='red')
