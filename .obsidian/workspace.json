@@ -11,15 +11,28 @@
             "id": "ec4dff4d467d74b0",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "image",
               "state": {
-                "file": "chapter2.1.md",
-                "mode": "source",
-                "source": false
-              }
+                "file": "证明材料/2019年华北五省机器人大赛河北省一等奖(1).jpeg"
+              },
+              "icon": "lucide-image",
+              "title": "2019年华北五省机器人大赛河北省一等奖(1)"
+            }
+          },
+          {
+            "id": "972e1476b77a903a",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.7.4"
+              },
+              "icon": "lucide-file",
+              "title": "Release Notes 1.7.4"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -39,7 +52,9 @@
               "type": "file-explorer",
               "state": {
                 "sortOrder": "alphabetical"
-              }
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
             }
           },
           {
@@ -54,7 +69,9 @@
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical"
-              }
+              },
+              "icon": "lucide-search",
+              "title": "Search"
             }
           },
           {
@@ -62,15 +79,16 @@
             "type": "leaf",
             "state": {
               "type": "bookmarks",
-              "state": {}
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
             }
           }
         ]
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "4baa734b9d8a3011",
@@ -86,7 +104,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "chapter2.1.md",
+                "file": "证明材料/2019年华北五省机器人大赛河北省一等奖(1).jpeg",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -94,7 +112,9 @@
                 "searchQuery": "",
                 "backlinkCollapsed": false,
                 "unlinkedCollapsed": true
-              }
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for 2019年华北五省机器人大赛河北省一等奖(1)"
             }
           },
           {
@@ -103,10 +123,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "chapter2.1.md",
+                "file": "证明材料/2019年华北五省机器人大赛河北省一等奖(1).jpeg",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
-              }
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from 2019年华北五省机器人大赛河北省一等奖(1)"
             }
           },
           {
@@ -117,7 +139,9 @@
               "state": {
                 "sortOrder": "frequency",
                 "useHierarchy": true
-              }
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
             }
           },
           {
@@ -126,8 +150,10 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "chapter2.1.md"
-              }
+                "file": "证明材料/2019年华北五省机器人大赛河北省一等奖(1).jpeg"
+              },
+              "icon": "lucide-list",
+              "title": "Outline of 2019年华北五省机器人大赛河北省一等奖(1)"
             }
           }
         ]
@@ -139,14 +165,21 @@
   },
   "left-ribbon": {
     "hiddenItems": {
-      "switcher:打开快速切换": false,
-      "graph:查看关系图谱": false,
-      "canvas:新建白板": false,
-      "daily-notes:打开/创建今天的日记": false,
-      "templates:插入模板": false,
-      "command-palette:打开命令面板": false
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
     }
   },
-  "active": "7041eca822dde5ee",
-  "lastOpenFiles": []
+  "active": "972e1476b77a903a",
+  "lastOpenFiles": [
+    "证明材料/2.校外学科竞赛申请流程-姜启龙-2023-04-19.pdf",
+    "教学设计.md",
+    "教学设计.pdf",
+    "教学创新成果报告.md",
+    "教学创新成果报告.pdf",
+    "chapter2.1.md"
+  ]
 }
