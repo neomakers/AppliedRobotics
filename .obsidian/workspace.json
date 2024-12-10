@@ -83,12 +83,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "教案/工业机器人/计算机智能控制系统.md",
+                "file": "教案/工业机器人/先进装备系统集成技术.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "计算机智能控制系统"
+              "title": "先进装备系统集成技术"
             }
           }
         ],
@@ -164,7 +164,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "教案/工业机器人/计算机智能控制系统.md",
+                "file": "教案/工业机器人/先进装备系统集成技术.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -174,7 +174,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "计算机智能控制系统 的反向链接列表"
+              "title": "先进装备系统集成技术 的反向链接列表"
             }
           },
           {
@@ -234,8 +234,10 @@
   },
   "active": "702c8efcb45a2ae7",
   "lastOpenFiles": [
-    "教案/工业机器人/tmp.md",
+    "教案/工业机器人/程序设计基础（C&C++）Ⅱ.md",
+    "教案/工业机器人/先进装备系统集成技术.md",
     "教案/工业机器人/计算机智能控制系统.md",
+    "教案/工业机器人/tmp.md",
     "教案/工业机器人/工业机器人技术及应用.md",
     "教案/工业机器人/2.md",
     "教案/all.md",
