@@ -1,52 +1,41 @@
 {
   "main": {
-    "id": "52a7521e77d809a7",
+    "id": "027c7aaea6ab5639",
     "type": "split",
     "children": [
       {
-        "id": "9413c09ff7aec826",
+        "id": "fb258d7d01c15381",
         "type": "tabs",
         "children": [
           {
-            "id": "ec4dff4d467d74b0",
+            "id": "ad94a84711937537",
             "type": "leaf",
             "state": {
-              "type": "image",
+              "type": "markdown",
               "state": {
-                "file": "证明材料/2019年华北五省机器人大赛河北省一等奖(1).jpeg"
-              },
-              "icon": "lucide-image",
-              "title": "2019年华北五省机器人大赛河北省一等奖(1)"
-            }
-          },
-          {
-            "id": "972e1476b77a903a",
-            "type": "leaf",
-            "state": {
-              "type": "release-notes",
-              "state": {
-                "currentVersion": "1.7.4"
+                "file": "教案/工业机器人/2.md",
+                "mode": "source",
+                "source": false
               },
               "icon": "lucide-file",
-              "title": "Release Notes 1.7.4"
+              "title": "2"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
   },
   "left": {
-    "id": "d56a7da028bae81b",
+    "id": "651a4e3277cb53ec",
     "type": "split",
     "children": [
       {
-        "id": "ad06e10bdde46f13",
+        "id": "0e6bc34eca678182",
         "type": "tabs",
         "children": [
           {
-            "id": "7041eca822dde5ee",
+            "id": "0d240a0a1bed649e",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -58,7 +47,7 @@
             }
           },
           {
-            "id": "4bab39e8daa5ad59",
+            "id": "297aa487f247305c",
             "type": "leaf",
             "state": {
               "type": "search",
@@ -75,7 +64,7 @@
             }
           },
           {
-            "id": "e0fae0cb76453d96",
+            "id": "c82f19bcbe5887a2",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
@@ -91,20 +80,20 @@
     "width": 300
   },
   "right": {
-    "id": "4baa734b9d8a3011",
+    "id": "61d27e02ce0db6ff",
     "type": "split",
     "children": [
       {
-        "id": "d3eb1f17d727fa7f",
+        "id": "45f04d541330bb17",
         "type": "tabs",
         "children": [
           {
-            "id": "31c10e937ffebf70",
+            "id": "fb4b5634b446e368",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
-                "file": "证明材料/2019年华北五省机器人大赛河北省一等奖(1).jpeg",
+                "file": "教案/工业机器人/2.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -114,25 +103,25 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for 2019年华北五省机器人大赛河北省一等奖(1)"
+              "title": "Backlinks for 2"
             }
           },
           {
-            "id": "2ce76bffd693056f",
+            "id": "771d0c2a8eea8b4d",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "证明材料/2019年华北五省机器人大赛河北省一等奖(1).jpeg",
+                "file": "教案/工业机器人/2.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from 2019年华北五省机器人大赛河北省一等奖(1)"
+              "title": "Outgoing links from 2"
             }
           },
           {
-            "id": "2a7e88c1ed420f38",
+            "id": "396c018a0692c662",
             "type": "leaf",
             "state": {
               "type": "tag",
@@ -145,15 +134,15 @@
             }
           },
           {
-            "id": "71d28db911aced7f",
+            "id": "c722eeb4e301befd",
             "type": "leaf",
             "state": {
               "type": "outline",
               "state": {
-                "file": "证明材料/2019年华北五省机器人大赛河北省一等奖(1).jpeg"
+                "file": "教案/工业机器人/2.md"
               },
               "icon": "lucide-list",
-              "title": "Outline of 2019年华北五省机器人大赛河北省一等奖(1)"
+              "title": "Outline of 2"
             }
           }
         ]
@@ -173,13 +162,9 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "972e1476b77a903a",
+  "active": "ad94a84711937537",
   "lastOpenFiles": [
-    "证明材料/2.校外学科竞赛申请流程-姜启龙-2023-04-19.pdf",
-    "教学设计.md",
-    "教学设计.pdf",
-    "教学创新成果报告.md",
-    "教学创新成果报告.pdf",
-    "chapter2.1.md"
+    "教案/工业机器人/先进装备系统集成技术.md",
+    "教案/工业机器人/ROS集成技术.md"
   ]
 }
